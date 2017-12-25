@@ -7,7 +7,7 @@ import { StyleSheet,
     TouchableOpacity , 
     AsyncStorage,
     Image,
-    Alert } from 'react-native';
+    Alert, StatusBar } from 'react-native';
 
 export default class Login extends Component {
     constructor(props){
@@ -21,13 +21,13 @@ export default class Login extends Component {
   render() {
     return (
         <View behavior='padding' style={styles.wrapper}>
-
+                <StatusBar backgroundColor="#566a81"/>
                 <View style={styles.container}>
 
-                    <Image style={styles.imagelogin} source={require('../../../logo/logo.png')}/>
+                    <Image style={styles.imagelogin} source={require('../../../logo/logomainm.png')}/>
 
                     <TextInput style={styles.textInput} 
-                        placeholder='Email'
+                        placeholder='Username or email'
                         keyboardType= 'default'
                         autoCapitalize= 'none'
                         onChangeText= {(email)=>{this.setState({email})}}
@@ -44,7 +44,7 @@ export default class Login extends Component {
                     />
                     
                     <TouchableOpacity
-                        onPress={()=>{this.props.navigation.navigate('ManHinh_SlideMenu')}}
+                        onPress={()=>{this.props.navigation.navigate('ManHinh_Home')}}
                         style={styles.buttonLogin}
                     >
                         <Text style={styles.textLogin}>Login</Text>
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#837d80',  
+        backgroundColor: '#566a81',  
     },
     container: {
         flex: 1,
@@ -84,8 +84,9 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
     },
     textInput: {
-        padding: 14,
+        padding: 12,
         width: 250,
+        fontFamily: 'Relish Pro',
         marginBottom: 20,
         backgroundColor: '#fff',
     },
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
         padding: 12,
         width: 250,
         alignItems: 'center',
-        backgroundColor: '#383335',
+        backgroundColor: '#34495e',
     },
     buttonSignup: {
         alignSelf: 'stretch',
@@ -104,24 +105,25 @@ const styles = StyleSheet.create({
     textLogin: {
         color: '#F5F5F5',
         fontSize: 20,
-        fontWeight: 'bold',
+        fontFamily: 'Relish Pro Medium'
     },
     imagelogin: {
-        width: 260,
+        width: 280,
         height: 150,
-        marginBottom: 20,
+        marginBottom: 10,
         backgroundColor: 'transparent',
     },
     textRegister: {
-        fontWeight: 'bold',
-        fontSize: 15,
-        color: '#383335',
+        fontSize: 17,
+        fontFamily: 'Relish Pro Medium',
+        color: '#34495e',
     },
     textRegular: {
         marginTop: 5,
         textAlign: 'center',
-        fontSize: 14,
+        fontSize: 17,
         color: '#fff',
+        fontFamily: 'Relish Pro',
     }
 });
 

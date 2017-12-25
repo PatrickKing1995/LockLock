@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native'
 
-export default class RecentList extends Component {
+export default class Search extends Component {
   render() {
     return (
         <View style={content.container}>
-            <Text>RecentList</Text>
+            <Text>Search</Text>
         </View>
     )
   }

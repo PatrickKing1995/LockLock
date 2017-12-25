@@ -39,9 +39,8 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSAppTransportSecurity</key>
-	<!--See http://ste.vn/2015/06/10/configuring-app-transport-security-ios-9-osx-10-11/ -->
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
@@ -52,5 +51,23 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Relish Pro Condensed Regular.ttf</string>
+		<string>Relish Pro Italic.ttf</string>
+		<string>Relish Pro Light Italic.ttf</string>
+		<string>Relish Pro Light.ttf</string>
+		<string>Relish Pro Medium Italic.ttf</string>
+		<string>Relish Pro Medium.ttf</string>
+		<string>Relish Pro.ttf</string>
+		<string>Vf-Aptima_n.ttf</string>
+		<string>Oswald-Bold.ttf</string>
+		<string>Oswald-ExtraLight.ttf</string>
+		<string>Oswald-Light.ttf</string>
+		<string>Oswald-Medium.ttf</string>
+		<string>Oswald-Regular.ttf</string>
+		<string>Oswald-SemiBold.ttf</string>
+		<string>Relish-Pro-Medium.ttf</string>
+	</array>
 </dict>
 </plist>

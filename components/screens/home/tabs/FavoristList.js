@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 
 export default class FavoristList extends Component {
   render() {
     return (
-        <View>
+        <View style={content.container}>
             <Text>FavoristList</Text>
         </View>
     )
   }
 }
+
+const content = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    backgroundColor: '#f4f5f9',
+  }
+});

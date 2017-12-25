@@ -7,21 +7,7 @@ import { View,
 import Login from  '../components/screens/login/Login';
 import Home from  '../components/screens/home/Home';
 import User from  '../components/screens/user/User';
-import HOME from '../components/screens/HOME'
 
-export const SlideMenu = DrawerNavigator({
-    ManHinh_Home: {
-        screen: Home,
-        navigationOptions: {
-            header: null,
-        }
-    }
-},
-    {
-        drawerWidth: 260,
-        drawerPosition:'bottom',
-        contentComponent: props =><User/>
-});
 
 export const LoginStack = StackNavigator({
     ManHinh_Login: {
@@ -30,13 +16,18 @@ export const LoginStack = StackNavigator({
             header: null,
         }
     },
-    ManHinh_SlideMenu: {
+    ManHinh_Home: {
         screen: Home,
         navigationOptions: {
             header: null,
         }
     },
-    
+    ManHinh_User: {
+        screen: User,
+        navigationOptions: {
+            header: null,
+        }
+    }   
 });
 
 
