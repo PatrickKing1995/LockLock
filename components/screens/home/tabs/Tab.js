@@ -78,9 +78,27 @@ export const Tabs = TabNavigator({
     },
 })
 
+export const TaskStack = StackNavigator({
+    ManHinh_Tabs: {
+        screen: Tabs,
+        navigationOptions: {
+            header: null,
+        }
+    },
+    ManHinh_Add: {
+        screen: Add,
+        navigationOptions: {
+            header: null,
+        }
+    },
+})
+
+
+
 const styles = StyleSheet.create({
     icon: {
       width: 24,
       height: 24,
     },
   });
+

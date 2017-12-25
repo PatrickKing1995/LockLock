@@ -13,7 +13,6 @@ export default class Avatar extends Component {
             <View
             style={{
               flex: 1,
-              backgroundColor: '#eee',
             }}
           >
             <View
@@ -27,7 +26,6 @@ export default class Avatar extends Component {
             >
               <Image
                 style={{
-                    height: 150,
                     width: null,
                   resizeMode,
                 }}

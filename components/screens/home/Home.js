@@ -1,25 +1,17 @@
 import React, { Component } from 'react';
-import { View, Text, StatusBar, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import {Tabs} from './tabs/Tab';
+import { View, Text, StatusBar, StyleSheet, Image, TouchableOpacity, resizeMode } from 'react-native';
+import {TaskStack} from './tabs/Tab';
+import Header from './Header';
 
 export default class Home extends Component {
+  onClick_User=()=>{
+    this.props.navigation.navigate('ManHinh_User')
+  }
   render() {
     return (
         <View style={{flex: 1}}>
-            <StatusBar backgroundColor="#566a81"/>
-            <View style={header.container}>
-              <View style={header.rap}>
-                <TouchableOpacity
-                    onPress={()=>this.props.navigation.navigate('ManHinh_User')}
-                  >
-                    <Image style={header.image2} source={require('../../../icons/account-circle.png')}/>
-                </TouchableOpacity>
-                <Text style={header.title}>GateMemo</Text>
-                <Image style={header.image1} source={require('../../../icons/cloud.png')}/>
-                <Image style={header.image} source={require('../../../icons/power.png')}/>
-              </View>
-            </View>
-            <Tabs/>
+            <Header open={()=>this.onClick_User()}/>
+            <TaskStack/>
         </View>
     )
   }
@@ -59,3 +51,4 @@ const header = StyleSheet.create({
     marginLeft: 10,
   }
 });
+

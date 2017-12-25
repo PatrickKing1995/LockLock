@@ -27,7 +27,9 @@ export const LoginStack = StackNavigator({
         navigationOptions: {
             header: null,
         }
-    }   
+    },
 });
+
+
 
 
