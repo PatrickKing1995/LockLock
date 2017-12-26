@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, StatusBar, StyleSheet, Image, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import { View, Text, StatusBar, StyleSheet, Image, TouchableOpacity, TextInput, ScrollView,  } from 'react-native';
 
 export default class Header extends Component {
   constructor(props){
     super(props);
     this.state={
+      subject: '',
       stt: '',
     }
   }
@@ -26,11 +27,20 @@ export default class Header extends Component {
                 showsVerticalScrollIndicator={false}
                 style={styles.wrapper}
               >
-              <TextInput style={styles.textInput} 
-                          placeholder='Writing something....'
-                          // keyboardType= 'default'
+               <TextInput style={styles.textSubject} 
+                          placeholder='Subject....'
+                          keyboardType= 'default'
                           multiline={true}
-                          numberOfLines={200}
+                          numberOfLines={1}
+                          textAlignVertical={'top'}
+                          onChangeText={(subject)=>{this.setState({subject})}}
+                          underlineColorAndroid='transparent'
+                      />
+              <TextInput style={styles.textStatus} 
+                          placeholder='Writing something....'
+                          keyboardType= 'default'
+                          multiline={true}
+                          numberOfLines={30}
                           textAlignVertical={'top'}
                           onChangeText={(stt)=>{this.setState({stt})}}
                           underlineColorAndroid='transparent'
@@ -94,14 +104,18 @@ const styles = StyleSheet.create({
   containerin: {
     flex: 1,
     backgroundColor: 'transparent',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
+    top: 390,
+    left: 290,
+    height: 60,
+    width: 60,
     marginBottom: 35,
     marginRight: 40,
     alignItems: 'flex-end'
   },
   bttadd: {
-    width: 60,
-    height: 60
+    width: 50,
+    height: 50
   },
   container: {
       flex: 1, 
@@ -110,12 +124,22 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
       paddingRight: 10,
   },
-  textInput: {
+  textStatus: {
       padding: 12,
       fontFamily: 'Relish Pro',
       fontSize: 18,
+      paddingTop: 7,
       backgroundColor: '#fff',
   },
+  textSubject: {
+    padding: 12,
+    paddingBottom: 7,
+    fontFamily: 'Relish Pro Medium',
+    fontSize: 19,
+    borderBottomColor: '#798ea5',
+    borderBottomWidth: 2,
+    backgroundColor: '#fff',
+},
   textRegular: {
       marginTop: 5,
       textAlign: 'center',

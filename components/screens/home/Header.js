@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StatusBar, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StatusBar, StyleSheet, Image, TouchableOpacity, BackHandler } from 'react-native';
 
 export default class Header extends Component {
   render() {
@@ -15,7 +15,11 @@ export default class Header extends Component {
                 </TouchableOpacity>
                 <Text style={header.title}>GateMemo</Text>
                 <Image style={header.image1} source={require('../../../icons/cloud.png')}/>
-                <Image style={header.image} source={require('../../../icons/power.png')}/>
+                <TouchableOpacity
+                    onPress={()=>BackHandler.exitApp()}
+                  >
+                    <Image style={header.image} source={require('../../../icons/power.png')}/>
+                </TouchableOpacity>
               </View>
             </View>
         </View>
@@ -48,7 +52,7 @@ const header = StyleSheet.create({
   image1: {
     height: 26,
     width: 26,
-    marginLeft: 105
+    marginLeft: 120
   },
   image2: {
     height: 30,
