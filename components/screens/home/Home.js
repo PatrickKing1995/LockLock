@@ -5,7 +5,7 @@ import Header from './Header';
 
 export default class Home extends Component {
   onClick_User=()=>{
-    this.props.navigation.navigate('ManHinh_User')
+    this.props.navigation.navigate('MH_User')
   }
   render() {
     return (

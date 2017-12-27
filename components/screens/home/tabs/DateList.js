@@ -79,7 +79,7 @@ const tabs = StyleSheet.create({
 
 const styles = StyleSheet.create({
   wrapper: {
-    position: 'absolute',
+    // position: 'absolute',
     padding: 20,
     width: '100%',
     height: '100%', 

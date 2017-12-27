@@ -9,6 +9,10 @@ import { StyleSheet,
     Image,
     Alert, StatusBar } from 'react-native';
 
+    import {firebaseApp} from '../../../database/firebaseConfig';
+
+    const ACCESS_TOKEN = 'access_token';
+
 export default class Login extends Component {
     constructor(props){
         super(props);
@@ -16,6 +20,29 @@ export default class Login extends Component {
             email: '',
             password: '',
         }
+    }
+
+    getToken=()=>{
+        let user = firebaseApp.auth().currentUser;
+        let accessToken = user.uid;
+        AsyncStorage.setItem(ACCESS_TOKEN, accessToken);
+    }
+
+    LoginPer(){
+        firebaseApp.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+            .then(  () => {
+                this.getToken(),
+                this.props.navigation.navigate('ManHinh_Home')},)
+            .catch(function(error) {
+                Alert.alert(
+                    'LOGIN',
+                    'Fail',
+                    [
+                      {text: 'OK', onPress: () => console.log('OK Pressed')},
+                    ],
+                    { cancelable: false }
+                  )
+          });
     }
 
   render() {
@@ -44,13 +71,13 @@ export default class Login extends Component {
                     />
                     
                     <TouchableOpacity
-                        onPress={()=>{this.props.navigation.navigate('ManHinh_Home')}}
+                        onPress={()=>{this.LoginPer()}}
                         style={styles.buttonLogin}
                     >
                         <Text style={styles.textLogin}>Login</Text>
                     </TouchableOpacity >
                     <TouchableOpacity 
-                    ////
+                        onPress={()=>this.props.navigation.navigate('MH_Register')}
                         style={styles.buttonSignup}
                     >
                         <Text style={styles.textRegular}> Not a member? <Text style={styles.textRegister}>Sign up now.</Text></Text>

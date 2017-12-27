@@ -10,45 +10,19 @@ import {
 export default class Avatar extends Component {
     render() {
         return (
-            <View
-            style={{
-              flex: 1,
-            }}
-          >
-            <View
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-              }}
-            >
-              <Image
-                style={{
-                    width: null,
-                  resizeMode,
-                }}
-                source={require('../../../images/bg.png')}
-              />
+            <View style={{flex: 1,alignItems: 'center',}}>
+              <View style={styles.container}>
+                <Image
+                  style={styles.imageCover}
+                  source={require('../../../images/plane.jpg')}
+                />
+              </View>
+              <View style={styles.containerin}>
+                <Text style={styles.textInfo}>
+                  Hi
+                </Text>
+              </View>
             </View>
-            <View
-              style={{
-                flex: 1,
-                backgroundColor: 'transparent',
-                justifyContent: 'center',
-              }}
-            >
-              <Text
-                style={{
-                  textAlign: 'center',
-                  fontSize: 40,
-                }}
-              >
-                Hi
-              </Text>
-            </View>
-    </View>
         ) 
     }
 }
@@ -61,4 +35,19 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    container: {
+      position: 'absolute',
+    },
+    containerin: {
+        flex: 1,
+        backgroundColor: 'transparent',
+        justifyContent: 'center',
+    },
+    imageCover: {
+      height: 150
+    },
+    textInfo: {
+      textAlign: 'center',
+      fontSize: 40,
+    }
 });
