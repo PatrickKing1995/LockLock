@@ -1,11 +1,23 @@
 import React, { Component } from 'react';
-import { View, Text, StatusBar, StyleSheet, Image, TouchableOpacity, resizeMode } from 'react-native';
+import { View, Text, StatusBar, StyleSheet, Image, TouchableOpacity, resizeMode, BackHandler  } from 'react-native';
 import {TaskStack} from './tabs/Tab';
 import Header from './Header';
 
 export default class Home extends Component {
   onClick_User=()=>{
     this.props.navigation.navigate('MH_User')
+  }
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+  }
+  
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+  
+  handleBackButton() {
+    return true;
   }
   render() {
     return (

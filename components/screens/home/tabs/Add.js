@@ -106,16 +106,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     justifyContent: 'flex-start',
     top: 390,
-    left: 290,
+    left: 280,
     height: 60,
     width: 60,
     marginBottom: 35,
-    marginRight: 40,
+    marginRight: 60,
     alignItems: 'flex-end'
   },
   bttadd: {
-    width: 50,
-    height: 50
+    width: 55,
+    height: 55
   },
   container: {
       flex: 1, 

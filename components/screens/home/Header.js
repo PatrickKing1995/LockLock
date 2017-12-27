@@ -52,7 +52,7 @@ const header = StyleSheet.create({
   image1: {
     height: 26,
     width: 26,
-    marginLeft: 120
+    marginLeft: 100
   },
   image2: {
     height: 30,

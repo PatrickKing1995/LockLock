@@ -7,7 +7,8 @@ import { StyleSheet,
     TouchableOpacity , 
     AsyncStorage,
     Image,
-    Alert, StatusBar } from 'react-native';
+    Alert, StatusBar,
+} from 'react-native';
 
     import {firebaseApp} from '../../../database/firebaseConfig';
 
@@ -21,6 +22,22 @@ export default class Login extends Component {
             password: '',
         }
     }
+
+    // componentWillMount() {
+    //     this.verifyToken();
+    // }
+
+    // async verifyToken() {
+    //     try {
+    //       let accessToken = await AsyncStorage.getItem(ACCESS_TOKEN);
+    //       if(accessToken) {
+    //         this.props.navigation.navigate('ManHinh_Home')
+    //       } else {
+    //       }
+    //     } catch(error) {
+    //         console.log("Something went wrong");
+    //     }
+    //   }
 
     getToken=()=>{
         let user = firebaseApp.auth().currentUser;

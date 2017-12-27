@@ -3,7 +3,7 @@ import { View,
     Text,
     ScrollView,
  } from 'react-native'
- import { StackNavigator, TabNavigator, DrawerNavigator, DrawerItems } from 'react-navigation';
+ import { StackNavigator, TabNavigator, DrawerNavigator, DrawerItems, NavigationActions } from 'react-navigation';
 import Login from  '../components/screens/login/Login';
 import Home from  '../components/screens/home/Home';
 import User from  '../components/screens/user/User';
@@ -44,6 +44,7 @@ export const LoginStack = StackNavigator({
         screen: RegisterStack,
         navigationOptions: {
             header: null,
+            gesturesEnabled: false,
         }
     },
     ManHinh_Home: {
@@ -53,6 +54,8 @@ export const LoginStack = StackNavigator({
         }
     },
 });
+
+
 
 
 
