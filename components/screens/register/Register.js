@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         color: '#fff',
         fontFamily: 'Relish Pro Medium',
-        marginBottom: 20,
+        marginBottom: 40,
         backgroundColor: 'transparent',
     },
     textInput: {

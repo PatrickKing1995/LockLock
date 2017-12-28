@@ -14,44 +14,44 @@ export default class App extends Component {
     }
   }
 
-  componentWillMount() {
-    this.getToken();
-}
+//   componentWillMount() {
+//     this.getToken();
+// }
 
-  async getToken() {
-    try {
-      let accessToken = await AsyncStorage.getItem(ACCESS_TOKEN);
-      if(accessToken) {
-          console.log("Token not set");
-      } else {
-        this.setState({login: true})
-      }
-      this.setState({loading: false});
-    } catch(error) {
-        console.log("Something went wrong");
-    }
-  }
+//   async getToken() {
+//     try {
+//       let accessToken = await AsyncStorage.getItem(ACCESS_TOKEN);
+//       if(accessToken) {
+//           console.log("Token not set");
+//       } else {
+//         this.setState({login: true})
+//       }
+//       this.setState({loading: false});
+//     } catch(error) {
+//         console.log("Something went wrong");
+//     }
+//   }
 
   render() {
-    if (this.state.loading ) {
-      return(
-        <Loading/>
-      )
-    } else {
-      if(this.state.login){
-        return (
-          <LoginStack/>
-      )
-      } else {
-        return (
-          <HomeStack/>
-      )
-      }
+    // if (this.state.loading ) {
+    //   return(
+    //     <Loading/>
+    //   )
+    // } else {
+    //   if(this.state.login){
+    //     return (
+    //       <LoginStack/>
+    //   )
+    //   } else {
+    //     return (
+    //       <HomeStack/>
+    //   )
+    //   }
+    // }}
+    return (
+            <LoginStack/>
+        )
     }
-    // return (
-    //         <LoginStack/>
-    //     )
-    // }
     
-}
+
 }

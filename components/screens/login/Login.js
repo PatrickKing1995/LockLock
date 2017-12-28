@@ -11,6 +11,7 @@ import { StyleSheet,
 } from 'react-native';
 
     import {firebaseApp} from '../../../database/firebaseConfig';
+    import Loading from '../../Loading';
 
     const ACCESS_TOKEN = 'access_token';
 
@@ -20,26 +21,28 @@ export default class Login extends Component {
         this.state = {
             email: '',
             password: '',
+            loading: true,
         }
     }
 
-    // componentWillMount() {
-    //     this.verifyToken();
-    // }
+    componentWillMount() {
+        this.verifyToken();
+    }
 
-    // async verifyToken() {
-    //     try {
-    //       let accessToken = await AsyncStorage.getItem(ACCESS_TOKEN);
-    //       if(accessToken) {
-    //         this.props.navigation.navigate('ManHinh_Home')
-    //       } else {
-    //       }
-    //     } catch(error) {
-    //         console.log("Something went wrong");
-    //     }
-    //   }
+    async verifyToken() {
+        try {
+          let accessToken = await AsyncStorage.getItem(ACCESS_TOKEN);
+          if(accessToken) {
+            this.props.navigation.navigate('ManHinh_Home')
+          } else {
+          }
+          this.setState({loading: false});
+        } catch(error) {
+            console.log("Something went wrong");
+        }
+      }
 
-    getToken=()=>{
+     getToken=()=>{
         let user = firebaseApp.auth().currentUser;
         let accessToken = user.uid;
         AsyncStorage.setItem(ACCESS_TOKEN, accessToken);
@@ -63,8 +66,13 @@ export default class Login extends Component {
     }
 
   render() {
-    return (
-        <View behavior='padding' style={styles.wrapper}>
+         if (this.state.loading ) {
+      return(
+        <Loading/>
+        )
+        } else {
+            return(
+                <View behavior='padding' style={styles.wrapper}>
                 <StatusBar backgroundColor="#566a81"/>
                 <View style={styles.container}>
 
@@ -103,7 +111,8 @@ export default class Login extends Component {
                     
 
             </View>
-    );
+            )
+        }
   }
 }
 

@@ -29,7 +29,7 @@ export default class User extends Component {
   }
 
   confirmDelete() {
-    Alert.alert("Are you sure?", "This action cannot be undone", [
+    Alert.alert("Are you sure?", "Do you want to Logout?", [
       {text: 'Cancel'}, {text: 'Logout', onPress: () => this.onLogout()}
     ]);
 }
@@ -50,7 +50,7 @@ export default class User extends Component {
               >
                 <Image style={header.image2} source={require('../../../icons/close.png')}/>
               </TouchableOpacity>
-              <Text style={header.title}>Tai khoan</Text>
+              <Text style={header.title}>PatrickKing1995</Text>
               <TouchableOpacity
                     onPress={()=>this.confirmDelete()}
               >
@@ -84,7 +84,7 @@ const header = StyleSheet.create({
   image: {
     height: 26,
     width: 26,
-    marginLeft: 170
+    marginLeft: 120
   },
   image1: {
     height: 26,
