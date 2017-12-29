@@ -9,6 +9,7 @@ import { StyleSheet,
     Image,
     Alert,
     StatusBar } from 'react-native';
+    import {firebaseApp} from '../../../database/firebaseConfig';
 
 export default class Register extends Component {
     constructor(props){
@@ -17,6 +18,51 @@ export default class Register extends Component {
             email: '',
             password: '',
             repassword: ''
+        }
+    }
+
+    Registry(){
+        firebaseApp.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+        .then(()=>{
+            Alert.alert(
+                'REGISTER',
+                'Successfull',
+                [
+                  {text: 'OK', onPress: () => this.props.navigation.navigate('MH_Login')},
+                ],
+                { cancelable: false }
+              )
+              
+        })
+        .catch(function(error) {
+            Alert.alert(
+                'REGISTER',
+                "Something's wrong, please enter again!",
+                [
+                  {text: 'OK', onPress: () => console.log('OK Pressed')},
+                ],
+                { cancelable: false }
+              )
+              this.setState({
+                email:'',
+                password:'',
+            })
+        });
+    }
+
+    onClick=()=>{
+        if(this.state.password==this.state.repassword){
+            this.Registry();
+        } else {
+            Alert.alert(
+                'REGISTER',
+                'Password does not match the confirm password.',
+                [
+                  {text: 'OK', onPress: ()=>this.setState({password: '',
+                    repassword:'',})},
+                ],
+                { cancelable: false }
+              )
         }
     }
     
@@ -68,6 +114,7 @@ export default class Register extends Component {
                     
                     <TouchableOpacity
                         style={styles.buttonRegister}
+                        onPress={this.onClick}
                     >
                         <Text style={styles.textLogin}>Sign up</Text>
                     </TouchableOpacity >

@@ -1,7 +1,27 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, resizeMode,Image, ScrollView, TouchableOpacity,Alert, SectionList  } from 'react-native'
+import { View, Text, StyleSheet, resizeMode,Image, ScrollView, TouchableOpacity,Alert, SectionList  } from 'react-native';
+import {firebaseApp} from '../../../../../database/firebaseConfig';
+
+const ACCESS_TOKEN = 'access_token';
 
 export default class List extends Component {
+  constructor(props){
+    super(props);
+    this.itemRef= firebaseApp.database();
+  }
+
+  litenForItem(itemRef){
+    let item = [];
+    // let accessToken = await AsyncStorage.getItem(ACCESS_TOKEN);
+    this.itemRef.ref('H0DIINQmuWNCLCPVtZCgYPYlyMf1').on('value', (dataSnapshot)=>{
+      item.push({
+        data: dataSnapshot.val(),
+        key: dataSnapshot.key
+      })
+    } )
+    console.log("item", item);
+  }
+
   render() {
     return (
          <SectionList
@@ -16,6 +36,10 @@ export default class List extends Component {
           keyExtractor={(item, index) => index}
         />
     )
+  }
+
+  componentDidMount(){
+    this.litenForItem(this.itemRef);
   }
 }
 
