@@ -60,6 +60,7 @@ export const Tabs = TabNavigator({
 },
 {
     tabBarPosition: 'top',
+    swipeEnabled: false,
     tabBarOptions: {
         style: {
             backgroundColor: '#798ea5',

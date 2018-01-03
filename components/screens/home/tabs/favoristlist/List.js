@@ -67,13 +67,13 @@ export default class List extends Component {
         });
         var new_arr = [];
         arr.map((item)=>{
+            if(item.name.content[0].favor =="true"){
           new_arr.push({
             data: item.name.content,
-            date: item.name.date,
-          });
+          });}
         });
         this.setState({dataSource: new_arr})
-      // console.log('State:',this.state.dataSource);
+      console.log('State:',this.state.dataSource);
       // console.log('State:',this.state.data);
       })
     })
