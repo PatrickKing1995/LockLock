@@ -6,6 +6,7 @@ const ACCESS_TOKEN = 'access_token';
 
 class SectionListItem extends Component {
   render() {
+    if(this.props.item.favor){
       return (
           <View style={styles.itemlist}>
               <Text style={styles.title}>{this.props.item.title}
@@ -15,7 +16,11 @@ class SectionListItem extends Component {
               <View style={{height: 1, margin: 4, marginLeft: 20,marginRight: 10}}>
               </View>
           </View>
-      );
+      )
+    }
+    return (
+      <View/>
+    )
   }
 }
 
@@ -67,10 +72,10 @@ export default class List extends Component {
         });
         var new_arr = [];
         arr.map((item)=>{
-            if(item.name.content[0].favor =="true"){
           new_arr.push({
             data: item.name.content,
-          });}
+            date: item.name.date,
+          });
         });
         this.setState({dataSource: new_arr})
       console.log('State:',this.state.dataSource);

@@ -63,17 +63,18 @@ export default class List extends Component {
       dataSnapshot.forEach((child) => {
         arr.push({
           name: child.val(),
-          // _key: child.key  
+          _key: child.key  
         });
         var new_arr = [];
         arr.map((item)=>{
           new_arr.push({
             data: item.name.content,
             date: item.name.date,
+            key: item._key
           });
         });
         this.setState({dataSource: new_arr})
-      // console.log('State:',this.state.dataSource);
+      console.log('State:',this.state.dataSource);
       // console.log('State:',this.state.data);
       })
     })
@@ -83,6 +84,7 @@ export default class List extends Component {
     return (
          <SectionList
           sections={this.state.dataSource}
+          showsVerticalScrollIndicator={false}
           renderItem={({ item, index }) => {
             return (<SectionListItem item={item} index={index} >
 

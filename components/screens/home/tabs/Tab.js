@@ -24,17 +24,6 @@ export const Tabs = TabNavigator({
               ),
         }
     },
-    ManHinh_RecentList: {
-        screen: RecentList,
-        navigationOptions: {
-            tabBarLabel: () => (
-                <Image
-                  source={require('../../../../icons/history.png')}
-                  style={styles.icon}
-                />
-              ),
-        }
-    },
     ManHinh_FavoristList: {
         screen: FavoristList,
         navigationOptions: {
@@ -46,6 +35,19 @@ export const Tabs = TabNavigator({
               ),
         }
     },
+
+    ManHinh_RecentList: {
+        screen: RecentList,
+        navigationOptions: {
+            tabBarLabel: () => (
+                <Image
+                  source={require('../../../../icons/history.png')}
+                  style={styles.icon}
+                />
+              ),
+        }
+    },
+
     ManHinh_Search: {
         screen: Search,
         navigationOptions: {
