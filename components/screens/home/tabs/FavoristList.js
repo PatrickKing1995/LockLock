@@ -7,12 +7,12 @@ export default class FavoristList extends Component {
     return (
       <View style={{flex: 1}}>
         <View style={tabs.container}>
-          {/* <View
+          <View
             // showsVerticalScrollIndicator={false}
             style={styles.wrapper}
-          > */}
+          >
             <List/>
-          {/* </View> */}
+          </View> 
         </View>
       </View>
     )

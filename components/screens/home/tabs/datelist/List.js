@@ -5,17 +5,54 @@ import {firebaseApp} from '../../../../../database/firebaseConfig';
 const ACCESS_TOKEN = 'access_token';
 
 class SectionListItem extends Component {
+  constructor(props){
+    super(props);
+    this.state= {
+      userID: 'H0DIINQmuWNCLCPVtZCgYPYlyMf1',
+    };
+    console.log('Mangdau:',this.state.tempMemo);
+    console.ignoredYellowBox = [
+      'Setting a timer'
+    ];
+  }
+
+  updatefavor=()=>{
+    let tempMemo= {
+      favor: !this.props.item.favor,
+      title: this.props.item.title,
+      detail: this.props.item.detail,
+      key: this.props.item.key
+    }
+    firebaseApp.database().ref(this.state.userID).child(this.props.item.key).child('content').child(this.props.index).set(tempMemo)
+  }
   render() {
-      return (
+        if(this.props.item.favor){
+          return (
+              <View style={styles.itemlist}>
+                  <Text style={styles.titlefavor}>{this.props.item.title}
+                  </Text>
+                  <Text style={styles.item}>{this.props.item.detail}
+                  </Text>
+                  <View style={{height: 1, margin: 4, marginLeft: 20,marginRight: 10}}>
+                  </View>
+              </View>
+          )
+        }
+         else {return(
           <View style={styles.itemlist}>
-              <Text style={styles.title}>{this.props.item.title}
+             <TouchableOpacity
+                onPress={()=>this.updatefavor()}
+             >
+             <Text style={styles.title}>{this.props.item.title}
               </Text>
               <Text style={styles.item}>{this.props.item.detail}
               </Text>
               <View style={{height: 1, margin: 4, marginLeft: 20,marginRight: 10}}>
               </View>
+             </TouchableOpacity>
           </View>
-      );
+         )
+        }
   }
 }
 
@@ -47,16 +84,6 @@ export default class List extends Component {
     ];
   }
 
-  //   componentWillMount() {
-  //   this.getToken();
-  // }
-
-  // async getToken() {
-  //     let accessToken = await AsyncStorage.getItem(ACCESS_TOKEN);
-  //     this.setState({userID: accessToken})
-  //     alert(accessToken)
-  // }
-
   litenForItem(itemRef){
     itemRef.ref(this.state.userID).on('value', (dataSnapshot) => {
       var arr = [];
@@ -70,12 +97,10 @@ export default class List extends Component {
           new_arr.push({
             data: item.name.content,
             date: item.name.date,
-            key: item._key
+            khoa: item._key
           });
         });
         this.setState({dataSource: new_arr})
-      console.log('State:',this.state.dataSource);
-      // console.log('State:',this.state.data);
       })
     })
   }
@@ -85,8 +110,8 @@ export default class List extends Component {
          <SectionList
           sections={this.state.dataSource}
           showsVerticalScrollIndicator={false}
-          renderItem={({ item, index }) => {
-            return (<SectionListItem item={item} index={index} >
+          renderItem={({ item, index}) => {
+            return (<SectionListItem item={item} index={index}>
 
             </SectionListItem>);
         }}
@@ -178,6 +203,14 @@ const styles = StyleSheet.create({
       fontSize: 17,
       height: 30,
       borderBottomColor: '#798ea5',
+      borderBottomWidth: 2,
+      paddingLeft: 3,
+      fontFamily:'Relish Pro Medium Italic'
+    },
+    titlefavor: {
+      fontSize: 17,
+      height: 30,
+      borderBottomColor: '#ff6f91',
       borderBottomWidth: 2,
       paddingLeft: 3,
       fontFamily:'Relish Pro Medium Italic'

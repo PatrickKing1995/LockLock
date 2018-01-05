@@ -5,16 +5,39 @@ import {firebaseApp} from '../../../../../database/firebaseConfig';
 const ACCESS_TOKEN = 'access_token';
 
 class SectionListItem extends Component {
+  constructor(props){
+    super(props);
+    this.state= {
+      userID: 'H0DIINQmuWNCLCPVtZCgYPYlyMf1',
+    };
+    console.ignoredYellowBox = [
+      'Setting a timer'
+    ];
+  }
+
+  updatefavor(){
+    let tempMemo= {
+      favor: !this.props.item.favor,
+      title: this.props.item.title,
+      detail: this.props.item.detail,
+      key: this.props.item.key
+    }
+    firebaseApp.database().ref(this.state.userID).child(this.props.item.key).child('content').child(this.props.index).set(tempMemo)
+  }
   render() {
     if(this.props.item.favor){
       return (
           <View style={styles.itemlist}>
-              <Text style={styles.title}>{this.props.item.title}
-              </Text>
-              <Text style={styles.item}>{this.props.item.detail}
-              </Text>
-              <View style={{height: 1, margin: 4, marginLeft: 20,marginRight: 10}}>
-              </View>
+              <TouchableOpacity
+              onPress={()=>this.updatefavor()}
+           >
+           <Text style={styles.title}>{this.props.item.title}
+            </Text>
+            <Text style={styles.item}>{this.props.item.detail}
+            </Text>
+            <View style={{height: 1, margin: 4, marginLeft: 20,marginRight: 10}}>
+            </View>
+           </TouchableOpacity>
           </View>
       )
     }
@@ -75,10 +98,11 @@ export default class List extends Component {
           new_arr.push({
             data: item.name.content,
             date: item.name.date,
+            khoa: item._key
           });
         });
         this.setState({dataSource: new_arr})
-      console.log('State:',this.state.dataSource);
+      //console.log('State:',this.state.dataSource);
       // console.log('State:',this.state.data);
       })
     })
@@ -93,9 +117,9 @@ export default class List extends Component {
 
             </SectionListItem>);
         }}
-          renderSectionHeader={({ section }) => {
-            return (<SectionHeader section={section} />);
-        }}
+        //   renderSectionHeader={({ section }) => {
+        //     return (<SectionHeader section={section} />);
+        // }}
           keyExtractor={(item, index) => index}
           stickySectionHeadersEnabled={true}
         />
