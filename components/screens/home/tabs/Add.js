@@ -2,19 +2,22 @@ import React, { Component } from 'react';
 import { View, Text, StatusBar, StyleSheet, Image, TouchableOpacity,AsyncStorage, TextInput, ScrollView,Alert  } from 'react-native';
 import {firebaseApp} from '../../../../database/firebaseConfig'
 
+const ACCESS_TOKEN = 'access_token';
 const KEY ='key';
-const DATE='date'
+const DATE='date';
+const KHOA='khoa'
 
 export default class Header extends Component {
   constructor(props){
     super(props);
     this.state={
-      userID: 'H0DIINQmuWNCLCPVtZCgYPYlyMf1',
+      // userID: 'H0DIINQmuWNCLCPVtZCgYPYlyMf1',
       subject: '',
       stt: '',
       currentDate: '',
       lastDate:'',
       maxKey: 0,
+      khoa: 0,
     };
     console.ignoredYellowBox = [
       'Setting a timer'
@@ -26,23 +29,28 @@ export default class Header extends Component {
       date: this.state.currentDate,
       content: [{
         favor: false,
+        khoa: 0,
         title: this.state.subject,
         detail: this.state.stt,
         key: this.state.maxKey+1,
       }]
     }
-
-    firebaseApp.database().ref(this.state.userID).child(this.state.maxKey+1).child('content').child('1').update(memo)
+    let accessToken = AsyncStorage.getItem(ACCESS_TOKEN, (err, item) => {
+    firebaseApp.database().ref(item).child(this.state.maxKey+1).update(memo)
+    })
   }
 
   sameDate(){
     let memo = {
         favor: false,
+        khoa: this.state.khoa +1,
         title: this.state.subject,
         detail: this.state.stt,
-        key: this.state.maxKey+1,
+        key: this.state.maxKey,
       }
-    firebaseApp.database().ref(this.state.userID).child(this.state.maxKey+1).update(memo)
+      AsyncStorage.getItem(ACCESS_TOKEN, (err, item) => {
+          firebaseApp.database().ref(item).child(this.state.maxKey).child('content').child(this.state.khoa+1).update(memo)
+    })
   }
 
   addMemo(){
@@ -51,6 +59,7 @@ export default class Header extends Component {
     } else {
       this.sameDate()
     }
+    this.props.navigation.goBack()
   }
  
   async getKey(){
@@ -63,6 +72,12 @@ export default class Header extends Component {
     this.setState({lastDate: lastDate})
   }
 
+  async getKhoa(){
+    let lastKhoa = await AsyncStorage.getItem(KHOA);
+    this.setState({khoa: lastKhoa})
+    console.log('wer', this.state.khoa)
+  }
+
   showKey(){
     alert(this.state.maxKey)
   }
@@ -70,6 +85,7 @@ export default class Header extends Component {
   componentWillMount() {
     this.getDate();
     this.getKey();
+    this.getKhoa();
     this.getCurrentDate();
   }
 

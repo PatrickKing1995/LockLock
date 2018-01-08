@@ -4,18 +4,23 @@ import {firebaseApp} from '../../../../../database/firebaseConfig';
 
 const ACCESS_TOKEN = 'access_token';
 const KEY='key';
-const DATE='date'
+const DATE='date';
+const KHOA='khoa'
 
 class SectionListItem extends Component {
   constructor(props){
     super(props);
     this.state= {
-      userID: 'H0DIINQmuWNCLCPVtZCgYPYlyMf1',
+      khoa: this.props.item.khoa,
     };
-    console.log('Mangdau:',this.state.tempMemo);
     console.ignoredYellowBox = [
       'Setting a timer'
     ];
+  }
+
+  componentWillMount(){
+    AsyncStorage.setItem(KHOA, this.state.khoa);
+    console.log('sss', this.state.khoa)
   }
 
   updatefavor=()=>{
@@ -25,7 +30,9 @@ class SectionListItem extends Component {
      // detail: this.props.item.detail,
      // key: this.props.item.key
     }
-    firebaseApp.database().ref(this.state.userID).child(this.props.item.key).child('content').child(this.props.index).update(tempMemo)
+    AsyncStorage.getItem(ACCESS_TOKEN, (err, item) => {
+    firebaseApp.database().ref(item).child(this.props.item.key).child('content').child(this.props.index).update(tempMemo)
+    })
   }
   render() {
         if(this.props.item.favor){
@@ -79,9 +86,10 @@ export default class List extends Component {
     this.itemRef= firebaseApp.database();
     this.state= {
       dataSource: [],
-      userID: 'H0DIINQmuWNCLCPVtZCgYPYlyMf1',
+      userID: '',
       currentKey: '',
       lastDate: '',
+      contentkey: '',
     };
     console.ignoredYellowBox = [
       'Setting a timer'
@@ -90,29 +98,32 @@ export default class List extends Component {
 
 
   async litenForItem(itemRef){
-    itemRef.ref(this.state.userID).on('value', (dataSnapshot) => {
-      var arr = [];
-      dataSnapshot.forEach((child) => {
-        arr.push({
-          name: child.val(),
-          _key: child.key,  
-        });
-        this.setState({currentKey: child.key})
+    let accessToken = AsyncStorage.getItem(ACCESS_TOKEN, (err, item) => {
+      itemRef.ref(item).on('value', (dataSnapshot) => {
+        var arr = [];
+        dataSnapshot.forEach((child) => {
+          arr.push({
+            name: child.val(),
+            _key: child.key,  
+          });
+          this.setState({currentKey: child.key})
+        })
+        var new_arr = [];
+        arr.map((item)=>{
+          new_arr.push({
+            data: item.name.content,
+            date: item.name.date,
+            khoa: item._key
+          });
+          this.setState({lastDate: item.name.date})
+          this.setState({contentkey: item._key})
+        }
+      );
+        this.setState({dataSource: new_arr})
+        AsyncStorage.setItem(KEY, this.state.currentKey);
+        AsyncStorage.setItem(DATE, this.state.lastDate);
       })
-      var new_arr = [];
-      arr.map((item)=>{
-        new_arr.push({
-          data: item.name.content,
-          date: item.name.date,
-          khoa: item._key
-        });
-        this.setState({lastDate: item.name.date})
-      }
-    );
-      this.setState({dataSource: new_arr})
-      AsyncStorage.setItem(KEY, this.state.currentKey);
-      AsyncStorage.setItem(DATE, this.state.lastDate);
-    })
+    });
   }
 
   render() {
@@ -136,6 +147,7 @@ export default class List extends Component {
 
 
   componentDidMount(){
+    // alert(this.state.userID)
       this.litenForItem(this.itemRef);
     }
 }

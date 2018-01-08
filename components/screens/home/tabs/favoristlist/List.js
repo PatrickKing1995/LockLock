@@ -8,7 +8,7 @@ class SectionListItem extends Component {
   constructor(props){
     super(props);
     this.state= {
-      userID: 'H0DIINQmuWNCLCPVtZCgYPYlyMf1',
+      // userID: 'H0DIINQmuWNCLCPVtZCgYPYlyMf1',
     };
     console.ignoredYellowBox = [
       'Setting a timer'
@@ -33,7 +33,9 @@ class SectionListItem extends Component {
       //key: this.props.item.key
     }
     // this.ShowCurrentDate();
-    firebaseApp.database().ref(this.state.userID).child(this.props.item.key).child('content').child(this.props.index).update(tempMemo)
+    AsyncStorage.getItem(ACCESS_TOKEN, (err, item) => {
+    firebaseApp.database().ref(item).child(this.props.item.key).child('content').child(this.props.index).update(tempMemo)
+    })
   }
   render() {
     if(this.props.item.favor){
@@ -78,7 +80,7 @@ export default class List extends Component {
     this.itemRef= firebaseApp.database();
     this.state= {
       dataSource: [],
-      userID: 'H0DIINQmuWNCLCPVtZCgYPYlyMf1',
+      // userID: 'H0DIINQmuWNCLCPVtZCgYPYlyMf1',
     };
     console.ignoredYellowBox = [
       'Setting a timer'
@@ -96,7 +98,8 @@ export default class List extends Component {
   // }
 
   litenForItem(itemRef){
-    itemRef.ref(this.state.userID).on('value', (dataSnapshot) => {
+    let accessToken = AsyncStorage.getItem(ACCESS_TOKEN, (err, item) => {
+    itemRef.ref(item).on('value', (dataSnapshot) => {
       var arr = [];
       dataSnapshot.forEach((child) => {
         arr.push({
@@ -117,6 +120,7 @@ export default class List extends Component {
       // console.log('State:',this.state.data);
       })
     })
+  })
   }
 
   render() {

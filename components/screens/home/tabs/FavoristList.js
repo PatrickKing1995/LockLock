@@ -65,8 +65,8 @@ const styles = StyleSheet.create({
   wrapper: {
     //position: 'absolute',
     //margin: 10,
-    // width: '100%',
-    // height: '100%', 
+    width: '100%',
+    height: '100%', 
   },
   containerin: {
     flex: 1,
