@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, resizeMode,Image, ScrollView, TouchableOpacity,
 import {firebaseApp} from '../../../../../database/firebaseConfig';
 
 const ACCESS_TOKEN = 'access_token';
+const KEY='key';
+const DATE='date'
 
 class SectionListItem extends Component {
   constructor(props){
@@ -19,11 +21,11 @@ class SectionListItem extends Component {
   updatefavor=()=>{
     let tempMemo= {
       favor: !this.props.item.favor,
-      title: this.props.item.title,
-      detail: this.props.item.detail,
-      key: this.props.item.key
+      //title: this.props.item.title,
+     // detail: this.props.item.detail,
+     // key: this.props.item.key
     }
-    firebaseApp.database().ref(this.state.userID).child(this.props.item.key).child('content').child(this.props.index).set(tempMemo)
+    firebaseApp.database().ref(this.state.userID).child(this.props.item.key).child('content').child(this.props.index).update(tempMemo)
   }
   render() {
         if(this.props.item.favor){
@@ -78,30 +80,38 @@ export default class List extends Component {
     this.state= {
       dataSource: [],
       userID: 'H0DIINQmuWNCLCPVtZCgYPYlyMf1',
+      currentKey: '',
+      lastDate: '',
     };
     console.ignoredYellowBox = [
       'Setting a timer'
     ];
   }
 
-  litenForItem(itemRef){
+
+  async litenForItem(itemRef){
     itemRef.ref(this.state.userID).on('value', (dataSnapshot) => {
       var arr = [];
       dataSnapshot.forEach((child) => {
         arr.push({
           name: child.val(),
-          _key: child.key  
+          _key: child.key,  
         });
-        var new_arr = [];
-        arr.map((item)=>{
-          new_arr.push({
-            data: item.name.content,
-            date: item.name.date,
-            khoa: item._key
-          });
-        });
-        this.setState({dataSource: new_arr})
+        this.setState({currentKey: child.key})
       })
+      var new_arr = [];
+      arr.map((item)=>{
+        new_arr.push({
+          data: item.name.content,
+          date: item.name.date,
+          khoa: item._key
+        });
+        this.setState({lastDate: item.name.date})
+      }
+    );
+      this.setState({dataSource: new_arr})
+      AsyncStorage.setItem(KEY, this.state.currentKey);
+      AsyncStorage.setItem(DATE, this.state.lastDate);
     })
   }
 
@@ -124,8 +134,10 @@ export default class List extends Component {
     )
   }
 
+
   componentDidMount(){
-      this.litenForItem(this.itemRef);}
+      this.litenForItem(this.itemRef);
+    }
 }
 
 const list = StyleSheet.create({

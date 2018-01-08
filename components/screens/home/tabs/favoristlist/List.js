@@ -15,14 +15,25 @@ class SectionListItem extends Component {
     ];
   }
 
+  // ShowCurrentDate=()=>{
+ 
+  //   var date = new Date().getDate();
+  //   var month = new Date().getMonth() + 1;
+  //   var year = new Date().getFullYear();
+
+  //   Alert.alert(date + '/' + month + '/' + year);
+
+  //  }
+
   updatefavor(){
     let tempMemo= {
       favor: !this.props.item.favor,
-      title: this.props.item.title,
-      detail: this.props.item.detail,
-      key: this.props.item.key
+      //title: this.props.item.title,
+      //detail: this.props.item.detail,
+      //key: this.props.item.key
     }
-    firebaseApp.database().ref(this.state.userID).child(this.props.item.key).child('content').child(this.props.index).set(tempMemo)
+    // this.ShowCurrentDate();
+    firebaseApp.database().ref(this.state.userID).child(this.props.item.key).child('content').child(this.props.index).update(tempMemo)
   }
   render() {
     if(this.props.item.favor){
@@ -48,7 +59,6 @@ class SectionListItem extends Component {
 }
 
 class SectionHeader extends Component {
-
   render() {
       return (
           <View style={{
@@ -103,6 +113,7 @@ export default class List extends Component {
         });
         this.setState({dataSource: new_arr})
       //console.log('State:',this.state.dataSource);
+      //Alert.alert(this.state.dataSource);
       // console.log('State:',this.state.data);
       })
     })

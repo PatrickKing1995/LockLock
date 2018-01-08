@@ -1,14 +1,89 @@
 import React, { Component } from 'react';
-import { View, Text, StatusBar, StyleSheet, Image, TouchableOpacity, TextInput, ScrollView,  } from 'react-native';
+import { View, Text, StatusBar, StyleSheet, Image, TouchableOpacity,AsyncStorage, TextInput, ScrollView,Alert  } from 'react-native';
+import {firebaseApp} from '../../../../database/firebaseConfig'
+
+const KEY ='key';
+const DATE='date'
 
 export default class Header extends Component {
   constructor(props){
     super(props);
     this.state={
+      userID: 'H0DIINQmuWNCLCPVtZCgYPYlyMf1',
       subject: '',
       stt: '',
+      currentDate: '',
+      lastDate:'',
+      maxKey: 0,
+    };
+    console.ignoredYellowBox = [
+      'Setting a timer'
+    ];
+  }
+
+  diffDate(){
+    let memo = {
+      date: this.state.currentDate,
+      content: [{
+        favor: false,
+        title: this.state.subject,
+        detail: this.state.stt,
+        key: this.state.maxKey+1,
+      }]
+    }
+
+    firebaseApp.database().ref(this.state.userID).child(this.state.maxKey+1).child('content').child('1').update(memo)
+  }
+
+  sameDate(){
+    let memo = {
+        favor: false,
+        title: this.state.subject,
+        detail: this.state.stt,
+        key: this.state.maxKey+1,
+      }
+    firebaseApp.database().ref(this.state.userID).child(this.state.maxKey+1).update(memo)
+  }
+
+  addMemo(){
+    if(this.state.currentDate != this.state.lastDate){
+      this.diffDate()
+    } else {
+      this.sameDate()
     }
   }
+ 
+  async getKey(){
+    let currentKey = await AsyncStorage.getItem(KEY);
+    this.setState({maxKey: +currentKey})
+  }
+
+  async getDate(){
+    let lastDate = await AsyncStorage.getItem(DATE);
+    this.setState({lastDate: lastDate})
+  }
+
+  showKey(){
+    alert(this.state.maxKey)
+  }
+
+  componentWillMount() {
+    this.getDate();
+    this.getKey();
+    this.getCurrentDate();
+  }
+
+  getCurrentDate(){
+    let date = new Date().getDate();
+    let month = new Date().getMonth() + 1;
+    let year = new Date().getFullYear();
+    this.setState({currentDate: date + '/' + month + '/' + year})
+   }
+
+   showCurrentDate(){
+     Alert.alert(this.state.currentDate);
+   }
+
   render() {
     return (
         <View style={{flex: 1}}>
@@ -28,7 +103,7 @@ export default class Header extends Component {
                 style={styles.wrapper}
               >
                <TextInput style={styles.textSubject} 
-                          placeholder='Subject....'
+                          placeholder='Title....'
                           keyboardType= 'default'
                           multiline={true}
                           numberOfLines={1}
@@ -50,6 +125,7 @@ export default class Header extends Component {
             style={styles.containerin}
           >
             <TouchableOpacity
+              onPress={()=>this.addMemo()}
             >
               <Image style={styles.bttadd} source={require('../../../../icons/upload.png')}/>
             </TouchableOpacity>
