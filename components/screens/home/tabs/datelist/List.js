@@ -5,7 +5,6 @@ import {firebaseApp} from '../../../../../database/firebaseConfig';
 const ACCESS_TOKEN = 'access_token';
 const KEY='key';
 const DATE='date';
-const KHOA='khoa'
 
 class SectionListItem extends Component {
   constructor(props){
@@ -16,11 +15,6 @@ class SectionListItem extends Component {
     console.ignoredYellowBox = [
       'Setting a timer'
     ];
-  }
-
-  componentWillMount(){
-    AsyncStorage.setItem(KHOA, this.state.khoa);
-    console.log('sss', this.state.khoa)
   }
 
   updatefavor=()=>{
@@ -89,7 +83,6 @@ export default class List extends Component {
       userID: '',
       currentKey: '',
       lastDate: '',
-      contentkey: '',
     };
     console.ignoredYellowBox = [
       'Setting a timer'
@@ -113,10 +106,8 @@ export default class List extends Component {
           new_arr.push({
             data: item.name.content,
             date: item.name.date,
-            khoa: item._key
           });
           this.setState({lastDate: item.name.date})
-          this.setState({contentkey: item._key})
         }
       );
         this.setState({dataSource: new_arr})

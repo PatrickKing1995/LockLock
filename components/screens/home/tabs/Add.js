@@ -5,7 +5,6 @@ import {firebaseApp} from '../../../../database/firebaseConfig'
 const ACCESS_TOKEN = 'access_token';
 const KEY ='key';
 const DATE='date';
-const KHOA='khoa'
 
 export default class Header extends Component {
   constructor(props){
@@ -17,7 +16,7 @@ export default class Header extends Component {
       currentDate: '',
       lastDate:'',
       maxKey: 0,
-      khoa: 0,
+      size: 0,
     };
     console.ignoredYellowBox = [
       'Setting a timer'
@@ -29,7 +28,6 @@ export default class Header extends Component {
       date: this.state.currentDate,
       content: [{
         favor: false,
-        khoa: 0,
         title: this.state.subject,
         detail: this.state.stt,
         key: this.state.maxKey+1,
@@ -43,23 +41,56 @@ export default class Header extends Component {
   sameDate(){
     let memo = {
         favor: false,
-        khoa: this.state.khoa +1,
         title: this.state.subject,
         detail: this.state.stt,
         key: this.state.maxKey,
       }
       AsyncStorage.getItem(ACCESS_TOKEN, (err, item) => {
-          firebaseApp.database().ref(item).child(this.state.maxKey).child('content').child(this.state.khoa+1).update(memo)
+          firebaseApp.database().ref(item).child(this.state.maxKey).child('content').child(+this.state.size).update(memo)
     })
   }
 
+  getContenSameDate(){
+    AsyncStorage.getItem(ACCESS_TOKEN, (err, item) => {
+      firebaseApp.database().ref(item).once('value', (dataSnapshot) => {
+      var arr = [];
+      dataSnapshot.forEach((child) => {
+        arr.push({
+          name: child.val(),
+          _key: child.key,  
+        });
+      })
+      var new_arr = [];
+      arr.map((item)=>{
+        if(item.name.date == this.state.currentDate){
+          new_arr.push(
+            item.name.content,
+          );
+        }
+      });
+    new_arr.map((item)=>{
+      this.setState({size: item.length})
+    })
+      console.log('fsdfsdf', this.state.size)
+      // this.setState({size: new_arr.length})
+    })
+  });
+  }
+
+
+
   addMemo(){
-    if(this.state.currentDate != this.state.lastDate){
-      this.diffDate()
+    if(this.state.stt == '' || this.state.subject == ''){
+      alert('Please writting something....')
     } else {
-      this.sameDate()
+      if(this.state.currentDate != this.state.lastDate){
+        this.diffDate()
+      } else {
+        this.getContenSameDate()
+        this.sameDate()
+      }
+      this.props.navigation.goBack()
     }
-    this.props.navigation.goBack()
   }
  
   async getKey(){
@@ -72,33 +103,32 @@ export default class Header extends Component {
     this.setState({lastDate: lastDate})
   }
 
-  async getKhoa(){
-    let lastKhoa = await AsyncStorage.getItem(KHOA);
-    this.setState({khoa: lastKhoa})
-    console.log('wer', this.state.khoa)
+
+  showDate(){
+    alert(this.state.currentDate)
   }
 
-  showKey(){
-    alert(this.state.maxKey)
-  }
-
-  componentWillMount() {
-    this.getDate();
-    this.getKey();
-    this.getKhoa();
-    this.getCurrentDate();
+  async litenForItem(itemRef){
   }
 
   getCurrentDate(){
     let date = new Date().getDate();
     let month = new Date().getMonth() + 1;
     let year = new Date().getFullYear();
+    if(date<10){
+      date = '0'+ date
+    }
+    if(month<10){
+      month = '0'+ month 
+    }
     this.setState({currentDate: date + '/' + month + '/' + year})
    }
 
-   showCurrentDate(){
-     Alert.alert(this.state.currentDate);
-   }
+  componentWillMount() {
+    this.getDate();
+    this.getKey();
+    this.getCurrentDate();
+  }
 
   render() {
     return (

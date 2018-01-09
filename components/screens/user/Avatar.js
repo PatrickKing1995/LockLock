@@ -10,7 +10,7 @@ import {
 export default class Avatar extends Component {
     render() {
         return (
-            <View style={{flex: 1,alignItems: 'center',}}>
+            <View style={{flex: 1,alignItems: 'center', opacity: 10}}>
               <View style={styles.container}>
                 <Image
                   style={styles.imageCover}
@@ -19,7 +19,6 @@ export default class Avatar extends Component {
               </View>
               <View style={styles.containerin}>
                 <Text style={styles.textInfo}>
-                  Hi
                 </Text>
               </View>
             </View>
@@ -37,9 +36,11 @@ const styles = StyleSheet.create({
     },
     container: {
       position: 'absolute',
+      opacity: 10,
     },
     containerin: {
         flex: 1,
+        opacity: 10,
         backgroundColor: 'transparent',
         justifyContent: 'center',
     },

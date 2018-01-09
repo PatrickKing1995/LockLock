@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, StatusBar, StyleSheet, Image, TouchableOpacity, resizeMode, BackHandler  } from 'react-native';
+import { View, Text,Dimensions, StatusBar, StyleSheet, Image, TouchableOpacity, resizeMode, BackHandler  } from 'react-native';
 import {TaskStack} from './tabs/Tab';
 import Header from './Header';
+import {firebaseApp} from '../../../database/firebaseConfig';
+
+const {width,height} = Dimensions.get('window');
 
 export default class Home extends Component {
   onClick_User=()=>{
@@ -63,4 +66,29 @@ const header = StyleSheet.create({
     marginLeft: 10,
   }
 });
+
+const modals=StyleSheet.create({
+  openViewOpacity: {
+    position: 'absolute',
+    top:0,
+    right:0,
+    left:0,
+    bottom:0,
+    backgroundColor:'black',
+    opacity:0.7
+  },
+
+  closeViewOpacity: {},
+
+  openViewModal: {
+      position: 'absolute',
+      top: height*0.15,
+      left:width*0.2 ,
+      right:width*0.2,
+      width:width*0.6,
+      // height:100,
+      borderRadius: 20,
+      backgroundColor:'white',
+  },
+})
 

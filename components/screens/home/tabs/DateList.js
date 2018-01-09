@@ -7,12 +7,12 @@ export default class DateList extends Component {
     return (
       <View style={{flex: 1}}>
         <View style={tabs.container}>
-          {/* <View
+          <View
             // showsVerticalScrollIndicator={false}
             style={styles.wrapper}
-          > */}
+          >
             <List/>
-          {/* </View> */}
+          </View>
         </View>
         <View
           style={tabs.containerin}
@@ -74,8 +74,8 @@ const styles = StyleSheet.create({
   wrapper: {
     //position: 'absolute',
     //margin: 10,
-    // width: '100%',
-    // height: '100%', 
+    width: '100%',
+    height: '100%', 
   },
   containerin: {
     flex: 1,

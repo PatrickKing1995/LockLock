@@ -32,7 +32,6 @@ class SectionListItem extends Component {
       //detail: this.props.item.detail,
       //key: this.props.item.key
     }
-    // this.ShowCurrentDate();
     AsyncStorage.getItem(ACCESS_TOKEN, (err, item) => {
     firebaseApp.database().ref(item).child(this.props.item.key).child('content').child(this.props.index).update(tempMemo)
     })
@@ -87,16 +86,6 @@ export default class List extends Component {
     ];
   }
 
-  //   componentWillMount() {
-  //   this.getToken();
-  // }
-
-  // async getToken() {
-  //     let accessToken = await AsyncStorage.getItem(ACCESS_TOKEN);
-  //     this.setState({userID: accessToken})
-  //     alert(accessToken)
-  // }
-
   litenForItem(itemRef){
     let accessToken = AsyncStorage.getItem(ACCESS_TOKEN, (err, item) => {
     itemRef.ref(item).on('value', (dataSnapshot) => {
@@ -115,9 +104,6 @@ export default class List extends Component {
           });
         });
         this.setState({dataSource: new_arr})
-      //console.log('State:',this.state.dataSource);
-      //Alert.alert(this.state.dataSource);
-      // console.log('State:',this.state.data);
       })
     })
   })
