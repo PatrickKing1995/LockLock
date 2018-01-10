@@ -5,48 +5,91 @@ import {
   textInput,
   StyleSheet,
   TextInput,
-  Dimensions
+  Dimensions,
+  TouchableOpacity,
+  Image
 } from "react-native";
+
+import List from "./search/List";
+
 const { width, height } = Dimensions.get("window");
 
-class Header extends Component {
+// class Header extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       search: ""
+//     };
+//   }
+
+//   render() {
+//     return (
+//       <View
+//         style={{
+//           flex: 1,
+//           flexDirection: "row",
+//           alignItems: "center"
+//         }}
+//       >
+//         <TextInput
+//           style={search.textInput}
+//           placeholder="Searching....."
+//           keyboardType="default"
+//           autoCapitalize="none"
+//           onChangeText={search => {
+//             this.setState({ search });
+//           }}
+//           underlineColorAndroid="transparent"
+//         />
+//         <TouchableOpacity>
+//           <Image
+//             style={tabs.bttadd}
+//             source={require("../../../../icons/broom.png")}
+//           />
+//         </TouchableOpacity>
+//       </View>
+//     );
+//   }
+// }
+
+export default class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
       search: ""
     };
   }
-
   render() {
     return (
-      <View style={search.bar}>
-        <TextInput
-          style={search.textInput}
-          placeholder="Searching....."
-          keyboardType="default"
-          autoCapitalize="none"
-          onChangeText={search => {
-            this.setState({ search });
-          }}
-          underlineColorAndroid="transparent"
-        />
-      </View>
-    );
-  }
-}
-
-export default class Search extends Component {
-  render() {
-    return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, alignItems: "center" }}>
         <View style={tabs.container}>
-          <View
-            // showsVerticalScrollIndicator={false}
-            style={styles.wrapper}
-          />
+          <List search={this.state.search} />
         </View>
-        <View style={tabs.containerin}>
-          <Header />
+        <View style={tabs.containerin} elevation={10}>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "row",
+              alignItems: "center"
+            }}
+          >
+            <TextInput
+              style={search.textInput}
+              placeholder="Searching....."
+              keyboardType="default"
+              autoCapitalize="none"
+              onChangeText={search => {
+                this.setState({ search });
+              }}
+              underlineColorAndroid="transparent"
+            />
+            <TouchableOpacity>
+              <Image
+                style={tabs.bttadd}
+                source={require("../../../../icons/broom.png")}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     );
@@ -58,24 +101,31 @@ const tabs = StyleSheet.create({
     position: "absolute",
     top: 0,
     left: 0,
-    alignItems: "center",
+    alignItems: "flex-start",
     justifyContent: "center",
     width: "100%",
     height: "100%"
   },
   containerin: {
-    flex: 1,
-    backgroundColor: "transparent",
     justifyContent: "center",
-    width: width * 0.9,
-    // height:100,
-    borderRadius: 20,
+    width: width * 0.92,
+    top: height * 0.03,
+    shadowColor: "#000000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowRadius: 0,
+    shadowOpacity: 0.7,
+    height: height * 0.08,
     backgroundColor: "white",
-    alignItems: "center"
+    alignItems: "center",
+    padding: 2
   },
   bttadd: {
-    width: 60,
-    height: 60
+    width: 30,
+    height: 30,
+    tintColor: "#566a81"
   },
   roll: {
     height: null,
@@ -139,10 +189,9 @@ const search = StyleSheet.create({
     height: 40
   },
   textInput: {
-    padding: 12,
     width: 250,
+    fontSize: 17,
     fontFamily: "Relish Pro",
-    marginBottom: 20,
     backgroundColor: "#fff"
   }
 });

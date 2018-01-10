@@ -4,7 +4,7 @@ import { View, Text, StatusBar, StyleSheet, Image, TouchableOpacity, BackHandler
 export default class Header extends Component {
   render() {
     return (
-        <View>
+        <View style={header.wrapp} elevation={20}>
             <StatusBar backgroundColor="#566a81"/>
             <View style={header.container}>
               <View style={header.rap}>
@@ -28,6 +28,15 @@ export default class Header extends Component {
 }
 
 const header = StyleSheet.create({
+  wrapp: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowRadius: 0,
+    shadowOpacity: 1,
+  },
   container: {
     backgroundColor: '#566a81',
     height: 45,
