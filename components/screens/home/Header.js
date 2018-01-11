@@ -14,7 +14,7 @@ export default class Header extends Component {
                     <Image style={header.image2} source={require('../../../icons/account-circle.png')}/>
                 </TouchableOpacity>
                 <Text style={header.title}>GateMemo</Text>
-                <Image style={header.image1} source={require('../../../icons/cloud.png')}/>
+                <Image style={header.image1} source={require('../../../icons/facebook-box.png')}/>
                 <TouchableOpacity
                     onPress={()=>BackHandler.exitApp()}
                   >

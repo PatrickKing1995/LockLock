@@ -9,7 +9,9 @@ import {
   AsyncStorage,
   Image,
   Alert,
-  StatusBar
+  StatusBar,
+  TouchableWithoutFeedback,
+  Keyboard
 } from "react-native";
 
 import { firebaseApp } from "../../../database/firebaseConfig";
@@ -79,29 +81,38 @@ export default class Login extends Component {
               style={styles.imagelogin}
               source={require("../../../logo/logomainm.png")}
             />
+            <TouchableWithoutFeedback
+              onPress={Keyboard.dismiss}
+              accessible={false}
+            >
+              <TextInput
+                style={styles.textInput}
+                placeholder="Username or email"
+                keyboardType="default"
+                autoCapitalize="none"
+                onChangeText={email => {
+                  this.setState({ email });
+                }}
+                underlineColorAndroid="transparent"
+              />
+            </TouchableWithoutFeedback>
 
-            <TextInput
-              style={styles.textInput}
-              placeholder="Username or email"
-              keyboardType="default"
-              autoCapitalize="none"
-              onChangeText={email => {
-                this.setState({ email });
-              }}
-              underlineColorAndroid="transparent"
-            />
-
-            <TextInput
-              style={styles.textInput}
-              placeholder="Password"
-              keyboardType="default"
-              autoCapitalize="none"
-              secureTextEntry={true}
-              onChangeText={password => {
-                this.setState({ password });
-              }}
-              underlineColorAndroid="transparent"
-            />
+            <TouchableWithoutFeedback
+              onPress={Keyboard.dismiss}
+              accessible={false}
+            >
+              <TextInput
+                style={styles.textInput}
+                placeholder="Password"
+                keyboardType="default"
+                autoCapitalize="none"
+                secureTextEntry={true}
+                onChangeText={password => {
+                  this.setState({ password });
+                }}
+                underlineColorAndroid="transparent"
+              />
+            </TouchableWithoutFeedback>
 
             <TouchableOpacity
               onPress={() => {
