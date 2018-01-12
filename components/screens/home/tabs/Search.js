@@ -26,7 +26,7 @@ export default class Search extends Component {
     this.state = {
       dataSource: [],
       search: "",
-      date: ''
+      date: ""
     };
     console.ignoredYellowBox = ["Setting a timer"];
   }
@@ -91,11 +91,11 @@ export default class Search extends Component {
             }}
           >
             <DatePicker
-              style={{ width: 300 }}
+              style={{ width: 260 }}
               date={this.state.date}
               mode="date"
               placeholder="Searching date ........"
-              format="DD-MM-YYYY"
+              format="DD/MM/YYYY"
               minDate="01-01-2000"
               maxDate="01-01-2030"
               confirmBtnText="Confirm"
@@ -105,7 +105,7 @@ export default class Search extends Component {
                   position: "absolute",
                   left: 0,
                   top: 4,
-                  tintColor: '#566a81',
+                  tintColor: "#566a81",
                   marginLeft: 0
                 },
                 dateInput: {
@@ -113,7 +113,8 @@ export default class Search extends Component {
                 }
               }}
               onDateChange={date => {
-                this.setState({ date: date.replace(/-/g, "/")});
+                this.setState({ date: date.replace(/-/g, "/") });
+                this.litenForItem();
               }}
             />
             {/* <TouchableWithoutFeedback
@@ -132,7 +133,7 @@ export default class Search extends Component {
               />
             </TouchableWithoutFeedback> */}
 
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() => {
                 this.litenForItem();
               }}
@@ -141,7 +142,7 @@ export default class Search extends Component {
                 style={tabs.bttadd}
                 source={require("../../../../icons/magnify.png")}
               />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </View>
       </View>
@@ -217,8 +218,6 @@ const styleslist = StyleSheet.create({
     backgroundColor: "#fff",
     marginTop: 5,
     marginBottom: 5,
-    marginRight: 10,
-    marginLeft: 10,
     flexDirection: "column"
   },
   title: {
